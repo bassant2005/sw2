@@ -1,0 +1,105 @@
+1. Decorator Pattern – Menu Items & Extras
+
+Classes involved:
+
+MenuItem (interface)
+PizzaItem, BurgerItem (concrete items)
+MenuItemDecorator (abstract decorator)
+ExtraCheeseDecorator, SauceDecorator (concrete decorators)
+
+Why we used it:
+
+We want to add extras like cheese or sauce to items dynamically,
+without creating many subclasses like PizzaWithCheeseAndSauce.
+Customers can customize their orders at runtime, making the system flexible.
+
+What the pattern does:
+
+Adds behavior or properties to objects at runtime.
+Keeps the original classes unchanged.
+Wraps objects inside decorator objects that extend functionality.
+
+Example:
+A PizzaItem can become PizzaItem + ExtraCheese + TomatoSauce dynamically.
+
+
+----------------------------------------------------------------------------------------
+
+2. Abstract Factory Pattern – Menu Factories
+
+Classes involved:
+
+MenuFactory (abstract)
+VegMenuFactory, NonVegMenuFactory, KidsMenuFactory (concrete factories)
+Menu (product returned by factories)
+
+Why we used it:
+
+The restaurant has different types of menus (Veg, Non-Veg, Kids).
+We want a centralized way to create menus, without changing client code (MainController)
+if new menus are added.
+
+What the pattern does:
+Provides an interface for creating families of related objectswithout specifying concrete classes.
+Promotes extensibility: you can add a new menu type without touching existing code.
+
+Example:
+VegMenuFactory.createMenu() gives a Veg menu, while NonVegMenuFactory.createMenu() gives a Non-Veg menu.
+
+----------------------------------------------------------------------------------------
+
+3. Strategy Pattern – Discounts
+
+Classes involved:
+
+DiscountStrategy (interface)
+PizzaDiscount (concrete strategies)
+
+Why we used it:
+
+The discount calculation logic can change depending on promotions or item types.
+Avoids scattering if-else statements in OrderCalculator.
+Makes it easy to add new discount types (e.g., seasonal, loyalty) without modifying existing code.
+
+What the pattern does:
+
+Defines a family of algorithms (discounts in this case).
+Makes them interchangeable at runtime.
+Keeps the client (OrderCalculator) independent of the specific discount logic.
+
+Example:
+
+A PizzaDiscount gives 10% off pizza items.
+The order system can apply multiple discount strategies dynamically, without knowing their internal details.
+
+----------------------------------------------------------------------------------------
+
+4. Template Method Pattern – Order Processing
+
+Classes involved:
+
+OrderTemplate (abstract)
+DineInOrder,TakeawayOrder (concrete templates)
+
+Why we used it:
+
+Orders have a common processing flow: place → notify → calculate → pay → print bill → complete.
+Some steps differ depending on order type (delivery has a fee, takeaway has pickup time).
+
+What the pattern does:
+
+Defines a skeleton of an algorithm in a base class.
+Lets subclasses override specific steps without changing the overall flow.
+
+Example:
+processOrder() is defined in OrderTemplate; delivery orders override calculateTotal() to include delivery fees.
+
+D – DIP	⚠️ Partially violated :
+	OrderTemplate directly depends on PaymentStrategy (a concrete strategy interface)
+	rather than an abstraction layer between them — small coupling exists.
+
+⚠️ Minor DIP issue: Since OrderTemplate directly manages payment,
+a better approach could delegate payment handling fully to an external billing handler
+to decouple responsibilities.
+
+
