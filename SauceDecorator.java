@@ -1,15 +1,13 @@
 public class SauceDecorator extends MenuItemDecorator {
-    private final String sauceType;
     double extraPrice = 20;
 
-    public SauceDecorator(MenuItem wrapped, String sauceType) {
+    public SauceDecorator(MenuItem wrapped) {
         super(wrapped);
-        this.sauceType = sauceType;
     }
 
     @Override
     public String getDescription() {
-        return wrapped.getDescription() + " + " + sauceType + " sauce";
+        return wrapped.getDescription() + " + sauce";
     }
 
     @Override

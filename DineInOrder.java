@@ -1,10 +1,11 @@
+import java.util.Random;
+
 public class DineInOrder extends OrderTemplate {
-    private final String tableNumber;
+    protected final int tableNumber = new Random().nextInt(10) + 1;
     double subtotal = 0;
 
-    public DineInOrder(PaymentHandler paymentHandler, OrderNotifier notifier, OrderCalculator calculator, String tableNumber) {
+    public DineInOrder(PaymentHandler paymentHandler, OrderNotifier notifier, OrderCalculator calculator) {
         super(paymentHandler, notifier, calculator);
-        this.tableNumber = tableNumber;
     }
 
     @Override
@@ -32,5 +33,6 @@ public class DineInOrder extends OrderTemplate {
     @Override
     protected void printBill() {
         BillingSystem.getInstance().generateAndPrintBill(getOrderId(), items, calculator);
+        System.out.println("table number: " + tableNumber);
     }
 }

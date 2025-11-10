@@ -14,25 +14,14 @@ public class OrderFactory {
                 if (tableNumber == null || tableNumber.trim().isEmpty()) {
                     throw new IllegalArgumentException("Table number is required for dine-in orders");
                 }
-                return new DineInOrder(paymentHandler, notifier, calculator, tableNumber);
-
-            case "delivery":
-                String address = (String) parameters.get("addr");
-                Double fee = (Double) parameters.get("fee");
-                if (address == null || address.trim().isEmpty()) {
-                    throw new IllegalArgumentException("Delivery address is required");
-                }
-                if (fee == null || fee < 0) {
-                    throw new IllegalArgumentException("Delivery fee must be non-negative");
-                }
-                return new DeliveryOrder(paymentHandler, notifier, calculator, address, fee);
+                return new DineInOrder(paymentHandler, notifier, calculator);
 
             case "takeaway":
                 String pickupTime = (String) parameters.get("pickup");
                 if (pickupTime == null || pickupTime.trim().isEmpty()) {
                     throw new IllegalArgumentException("Pickup time is required for takeaway orders");
                 }
-                return new TakeawayOrder(paymentHandler, notifier, calculator, pickupTime);
+                return new TakeawayOrder(paymentHandler, notifier, calculator);
 
             default:
                 throw new IllegalArgumentException("Invalid order type: " + orderType);

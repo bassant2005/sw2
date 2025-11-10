@@ -3,7 +3,7 @@ import java.util.*;
 /// Template Method
 public abstract class OrderTemplate {
 
-    protected final int orderId;
+    protected final int orderId = new Random().nextInt(100) + 1;
     protected final List<OrderItem> items = new ArrayList<>();
     protected PaymentHandler paymentHandler;
     protected OrderNotifier notifier;
@@ -12,14 +12,11 @@ public abstract class OrderTemplate {
     protected PaymentStrategy paymentStrategy;
     protected String customerName = "Guest";
 
-
     public OrderTemplate(PaymentHandler paymentHandler, OrderNotifier notifier, OrderCalculator calculator) {
-        this.orderId = new Random().nextInt(100) + 1;
         this.paymentHandler = paymentHandler;
         this.notifier = notifier;
         this.calculator = calculator;
     }
-    public OrderTemplate() { this.orderId = new Random().nextInt(100) + 1; }
 
     public int getOrderId() { return orderId; }
     public OrderStatus getStatus() { return status; }

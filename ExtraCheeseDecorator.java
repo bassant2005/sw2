@@ -3,7 +3,7 @@
 public class ExtraCheeseDecorator extends MenuItemDecorator {
     double extraPrice = 25;
 
-    public ExtraCheeseDecorator(MenuItem wrapped, double extraPrice) {
+    public ExtraCheeseDecorator(MenuItem wrapped) {
         super(wrapped);
     }
 

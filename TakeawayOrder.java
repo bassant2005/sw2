@@ -1,10 +1,9 @@
 public class TakeawayOrder extends OrderTemplate {
-    private final String pickupTime;
+    private final String pickupTime = "11:20";
     double subtotal = 0;
 
-    public TakeawayOrder(PaymentHandler paymentHandler, OrderNotifier notifier, OrderCalculator calculator, String pickupTime) {
+    public TakeawayOrder(PaymentHandler paymentHandler, OrderNotifier notifier, OrderCalculator calculator) {
         super(paymentHandler, notifier, calculator);
-        this.pickupTime = pickupTime;
     }
 
     @Override

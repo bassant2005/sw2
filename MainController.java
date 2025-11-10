@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class MainController {
     private final Menu menu;
     private final PaymentHandler paymentHandler = new PaymentHandler();
@@ -16,7 +14,6 @@ public class MainController {
         // Set up notification system once when restaurant opens
         setupNotificationSystem();
     }
-    
 
     private void setupNotificationSystem() {
         // Set up multiple Kitchen stations
@@ -51,13 +48,10 @@ public class MainController {
 
         // Get customer information
         String customerName = ui.readString("Enter customer name");
-        String orderType = ui.readString("Enter order type (dinein/delivery/takeaway)").toLowerCase();
-
-        // Collect order-specific parameters
-        Map<String, Object> params = collectOrderParameters(orderType);
+        String orderType = ui.readString("Enter order type (dinein/takeaway)").toLowerCase();
 
         // Create order
-        OrderTemplate order = createOrder(orderType, paymentHandler, notificationController, calculator, params);
+        OrderTemplate order = createOrder(orderType, paymentHandler, notificationController, calculator);
         order.setCustomerName(customerName);
 
         // Display menu and collect items
@@ -75,34 +69,13 @@ public class MainController {
         order.processOrder();
     }
 
-    private Map<String, Object> collectOrderParameters(String orderType) {
-        Map<String, Object> params = new HashMap<>();
-
-        if (orderType.equals("dinein")) {
-            params.put("table", ui.readString("Enter table number"));
-        } 
-        else if (orderType.equals("delivery")) {
-            params.put("addr", ui.readString("Enter delivery address"));
-            double fee = 10 + Math.random() * 90;
-            System.out.println("Delivery fee (randomly generated): " + String.format("%.2f", fee));
-            params.put("fee", fee);
-        } 
-        else if (orderType.equals("takeaway")) {
-            params.put("pickup", ui.readString("Enter pickup time (HH:MM)"));
-        }
-
-        return params;
-    }
-
     private OrderTemplate createOrder(String type, PaymentHandler handler, OrderNotifier notifier, 
-                                     OrderCalculator calc, Map<String, Object> params) {
+                                     OrderCalculator calc) {
         switch (type.toLowerCase()) {
             case "dinein":
-                return new DineInOrder(handler, notifier, calc, (String) params.get("table"));
-            case "delivery":
-                return new DeliveryOrder(handler, notifier, calc, (String) params.get("addr"), (Double) params.get("fee"));
+                return new DineInOrder(handler, notifier, calc);
             case "takeaway":
-                return new TakeawayOrder(handler, notifier, calc, (String) params.get("pickup"));
+                return new TakeawayOrder(handler, notifier, calc);
             default:
                 throw new IllegalArgumentException("Invalid order type");
         }
@@ -127,13 +100,12 @@ public class MainController {
             // Apply decorators
             String cheese = ui.readString("Add extra cheese? (yes/no)");
             if (cheese.equalsIgnoreCase("yes")) {
-                double cheesePrice = 25.0;
-                item = new ExtraCheeseDecorator(item, cheesePrice);
+                item = new ExtraCheeseDecorator(item);
             }
 
-            String sauce = ui.readString("Add sauce? (none for no sauce)");
-            if (!sauce.equalsIgnoreCase("none")) {
-                item = new SauceDecorator(item, sauce);
+            String sauce = ui.readString("Add sauce? (yes/no)");
+            if (!sauce.equalsIgnoreCase("no")) {
+                item = new SauceDecorator(item);
             }
 
             order.addItem(new OrderItem(item, qty));
@@ -152,12 +124,10 @@ public class MainController {
     private void configureDiscounts() {
         // Pizza discount (10% off pizzas)
         PizzaDiscount pizzaDiscount = new PizzaDiscount();
-        pizzaDiscount.percent = 10.0;
         calculator.addDiscountStrategy(pizzaDiscount);
 
         // Meat discount (25% off meat items)
         MeatDiscount meatDiscount = new MeatDiscount();
-        meatDiscount.percent = 25.0;
         calculator.addDiscountStrategy(meatDiscount);
     }
 
@@ -185,5 +155,4 @@ public class MainController {
         }
         return strategy;
     }
-
 }
