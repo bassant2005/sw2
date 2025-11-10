@@ -1,9 +1,9 @@
-class OrderItem {
+public class OrderItem {
     private final MenuItem item;
     private final int quantity;
 
-    public OrderItem(MenuItem item, int quantity) {
-        this.item = item;
+    public OrderItem(MenuItem item2, int quantity) {
+        this.item = item2;
         this.quantity = Math.max(1, quantity);
     }
 

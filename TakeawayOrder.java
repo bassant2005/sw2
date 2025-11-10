@@ -1,32 +1,37 @@
-class TakeawayOrder extends OrderTemplate {
+public class TakeawayOrder extends OrderTemplate {
     private final String pickupTime;
-    public TakeawayOrder(String pickupTime) { this.pickupTime = pickupTime; }
     double subtotal = 0;
+
+    public TakeawayOrder(PaymentHandler paymentHandler, OrderNotifier notifier, OrderCalculator calculator, String pickupTime) {
+        super(paymentHandler, notifier, calculator);
+        this.pickupTime = pickupTime;
+    }
 
     @Override
     protected void calculateTotal() {
-        for (OrderItem it : items) subtotal += it.getSubtotal();
-        double tax = subtotal * 0.14;
-        double total = subtotal + tax;
-        System.out.printf("[TakeawayOrder #%d] Subtotal=%.2f Tax=%.2f => Total=%.2f (Pickup=%s)\n", orderId, subtotal, tax, total, pickupTime);
+        subtotal = calculator.calculateSubtotal(items);
+        double discount = calculator.calculateDiscount(items);
+        double afterDiscount = Math.max(0.0, subtotal - discount);
+        double tax = calculator.calculateTax(afterDiscount);
+        double total = afterDiscount + tax;
+        System.out.printf("[TakeawayOrder #%d] Subtotal=%.2f Discount=%.2f Tax=%.2f => Total=%.2f (Pickup=%s)\n", 
+            getOrderId(), subtotal, discount, tax, total, pickupTime);
     }
 
     @Override
     protected boolean handlePayment() {
         if (paymentStrategy == null) return true;
-        double total = items.stream().mapToDouble(OrderItem::getSubtotal).sum() * 1.14;
-        return paymentStrategy.pay(total);
+        return paymentHandler.processPayment(calculator.calculateTotal(items), paymentStrategy);
     }
 
     @Override
     protected void notifySystems() {
-        System.out.println("[TakeawayOrder #" + orderId + "] Notifying Kitchen...");
+        notifier.notifyObservers(this);
     }
 
     @Override
     protected void printBill() {
-        System.out.println("--- BILL ---");
-        for (OrderItem it : items) System.out.printf("%-30s %6.2f\n", it.getDescription(), it.getSubtotal());
+        BillingSystem.getInstance().generateAndPrintBill(getOrderId(), items, calculator);
         System.out.println("Pickup Time: " + pickupTime);
     }
 }

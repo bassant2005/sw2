@@ -1,29 +1,36 @@
-class DineInOrder extends OrderTemplate {
+public class DineInOrder extends OrderTemplate {
+    private final String tableNumber;
     double subtotal = 0;
+
+    public DineInOrder(PaymentHandler paymentHandler, OrderNotifier notifier, OrderCalculator calculator, String tableNumber) {
+        super(paymentHandler, notifier, calculator);
+        this.tableNumber = tableNumber;
+    }
 
     @Override
     protected void calculateTotal() {
-        for (OrderItem it : items) subtotal += it.getSubtotal();
-        double tax = subtotal * 0.14; // 14% tax
-        double total = subtotal + tax;
-        System.out.printf("[DineInOrder #%d] Subtotal=%.2f Tax=%.2f => Total=%.2f\n", orderId, subtotal, tax, total);
+        subtotal = calculator.calculateSubtotal(items);
+        double discount = calculator.calculateDiscount(items);
+        double afterDiscount = Math.max(0.0, subtotal - discount);
+        double tax = calculator.calculateTax(afterDiscount);
+        double total = afterDiscount + tax;
+        System.out.printf("[DineInOrder #%d] Subtotal=%.2f Discount=%.2f Tax=%.2f => Total=%.2f\n", 
+            getOrderId(), subtotal, discount, tax, total);
     }
 
     @Override
     protected boolean handlePayment() {
         if (paymentStrategy == null) return true;
-        double total = items.stream().mapToDouble(OrderItem::getSubtotal).sum() * 1.14;
-        return paymentStrategy.pay(total);
+        return paymentHandler.processPayment(calculator.calculateTotal(items), paymentStrategy);
     }
 
     @Override
     protected void notifySystems() {
-        System.out.println("[DineInOrder #" + orderId + "] Notifying Kitchen and Waiter...");
+        notifier.notifyObservers(this);
     }
 
     @Override
     protected void printBill() {
-        System.out.println("--- BILL ---");
-        for (OrderItem it : items) System.out.printf("%-30s %6.2f\n", it.getDescription(), it.getSubtotal());
+        BillingSystem.getInstance().generateAndPrintBill(getOrderId(), items, calculator);
     }
 }
