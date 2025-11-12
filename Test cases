@@ -1,0 +1,43 @@
+// === different payment methods === //
+#case 1
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Cash (cashier ID: 123)
+
+#case 2
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Credit Card (Enter card number: 123 / Enter auth code: 123)
+
+#case 3
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Mobile Wallet (wallet ID: 123)
+
+// === different extras === //
+#case 1
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Cash (cashier ID: 123)
+
+#case 2
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + sauce
+payment method: Cash (cashier ID: 123)
+
+#case 3
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese & sauce
+payment method: Cash (cashier ID: 123)
+
+#case 4
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2
+payment method: Cash (cashier ID: 123)
