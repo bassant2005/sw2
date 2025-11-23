@@ -1,3 +1,13 @@
+/**
+ * CreditCardPayment - Concrete Strategy
+ * 
+ * This class implements the PaymentStrategy interface for credit card payments.
+ * It represents the credit card payment algorithm that can be used
+ * interchangeably with other payment methods.
+ * 
+ * Design Pattern: Strategy Pattern
+ * - Concrete Strategy: Implements credit card payment processing algorithm
+ */
 public class CreditCardPayment implements PaymentStrategy {
     private final String cardNumber;
     private final String authorizationCode;
@@ -13,6 +23,10 @@ public class CreditCardPayment implements PaymentStrategy {
         this.authorizationCode = authorizationCode;
     }
 
+    /**
+     * Process a credit card payment
+     * This method implements the Strategy Pattern's payment algorithm for credit cards.
+     */
     @Override
     public boolean pay(double amount) {
         if (amount <= 0) {
@@ -25,6 +39,9 @@ public class CreditCardPayment implements PaymentStrategy {
         return Math.random() > 0.05;
     }
 
+    /**
+     * Mask card number for security
+     */
     private String maskCardNumber(String cardNumber) {
         if (cardNumber.length() <= 4) {
             return "****";

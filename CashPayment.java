@@ -1,3 +1,12 @@
+/**
+ * CashPayment - Concrete Strategy
+ * 
+ * This class implements the PaymentStrategy interface for cash payments.
+ * It represents one of the concrete payment algorithms that can be used
+ * interchangeably with other payment methods.
+ * 
+ * Design Pattern: Strategy Pattern
+ */
 public class CashPayment implements PaymentStrategy {
     private final String cashierId;
 
@@ -8,6 +17,12 @@ public class CashPayment implements PaymentStrategy {
         this.cashierId = cashierId;
     }
 
+    /**
+     * Process a cash payment
+     * 
+     * This method implements the Strategy Pattern's payment algorithm for cash.
+     * Cash payments are always successful (assuming valid amount).
+     */
     @Override
     public boolean pay(double amount) {
         if (amount <= 0) {
@@ -19,6 +34,9 @@ public class CashPayment implements PaymentStrategy {
         return true;
     }
 
+    /**
+     * Helper method to format currency values
+     */
     private String format(double val) {
         return String.format("%.2f", val);
     }

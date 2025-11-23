@@ -1,7 +1,12 @@
 import java.util.*;
 
+/**
+ * OrderCalculator - Context in Strategy Pattern for Discounts
+ */
 public class OrderCalculator {
+    // Tax percentage (like 14.0 for 14%)
     private final double taxPercent;
+    // List of discount strategies to apply (Strategy Pattern)
     private final List<DiscountStrategy> discountStrategies;
 
     public OrderCalculator(double taxPercent) {
@@ -39,6 +44,15 @@ public class OrderCalculator {
         return amountAfterDiscount * taxPercent / 100.0;
     }
 
+    /**
+     * Calculate the final total for the order
+     * 
+     * Calculation flow:
+     * 1. Calculate subtotal from items
+     * 2. Apply all discount strategies
+     * 3. Calculate tax on discounted amount
+     * 4. Return total (discounted amount + tax)
+     */
     public double calculateTotal(List<OrderItem> items) {
         double subtotal = calculateSubtotal(items);
         double discount = calculateDiscount(items);

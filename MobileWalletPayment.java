@@ -1,3 +1,6 @@
+/**
+ * MobileWalletPayment - Concrete Strategy in Strategy Pattern
+ */
 public class MobileWalletPayment implements PaymentStrategy {
     private final String walletId;
 

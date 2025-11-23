@@ -1,3 +1,11 @@
+/**
+ * ConsoleBillPrinter - Concrete Strategy
+ * 
+ * This class implements the BillPrinter interface to print bills to the console.
+ * It's one of the concrete strategies that can be used by BillingSystem.
+ * Design Pattern: Strategy Pattern
+ * - Concrete Strategy: Implements console printing algorithm for bills
+ */
 public class ConsoleBillPrinter implements BillPrinter {
     @Override
     public void print(Bill bill) {
@@ -10,10 +18,12 @@ public class ConsoleBillPrinter implements BillPrinter {
         System.out.println("BILL - Order #" + bill.getOrderId());
         System.out.println("------------------------------\n");
 
+        // Print each item in the order
         for (OrderItem item : bill.getItems()) {
             System.out.printf("%-40s %8.2f\n", item.getDescription(), item.getSubtotal());
         }
 
+        // Print financial summary
         System.out.println("\n------------------------------");
         System.out.printf("%-40s %8.2f\n", "SUBTOTAL", bill.getSubtotal());
         System.out.printf("%-40s %8.2f\n", "DISCOUNT", bill.getDiscount());
