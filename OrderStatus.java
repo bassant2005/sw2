@@ -1,9 +1,6 @@
 public enum OrderStatus { 
     NEW, 
-    PLACED, 
-    PREPARING, 
-    READY, 
-    SERVED, 
+    PLACED,
     COMPLETED, 
     CANCELLED 
 }
