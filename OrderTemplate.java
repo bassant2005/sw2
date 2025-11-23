@@ -52,6 +52,7 @@ public abstract class OrderTemplate {
 
         notifySystems();
         calculateTotal();
+        handlePayment();
         printBill();
 
         status = OrderStatus.COMPLETED;
