@@ -1,0 +1,159 @@
+// === Observer Registration === //
+case 1 - Observer Pattern
+order type: delivery
+item 1: Classic Beef (Burger) x 1
+delivery address: 123 Main Street
+payment method: Cash (cashier ID: 789)
+Expected: Kitchen and Waiter should receive notifications with delivery address
+
+// === Cash Payment === //
+case 1 - Payment Strategy (Cash)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Cash (cashier ID: 123)
+Expected: Payment successful, cashier ID displayed
+
+// === Credit Card Payment === //
+case 3 - Payment Strategy (Credit Card)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Credit Card (Enter card number: 123 / Enter auth code: 123)
+Expected: Payment processed
+
+case 4 - Payment Strategy (Mobile Wallet)
+Menu Type: Kids Menu
+order type: dinein
+item 1: Kids Small Margherita (Pizza) x 1
+payment method: Mobile Wallet (wallet ID: 1234)
+Expected: Payment processed successfully
+
+// === Pizza Discount (2%) === //
+case 5 - Order Calculator (Pizza Discount)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2
+payment method: Cash (cashier ID: 123)
+Expected: 2% discount applied on pizza items
+
+// === Meat Discount (5%) === //
+case 6 - Order Calculator (Meat Discount)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Classic Beef (Burger) x 2
+payment method: Cash (cashier ID: 123)
+Expected: 5% discount applied on meat items (beef/chicken/meat)
+
+// === Multiple Discounts Combined === //
+case 5 - Order Calculator (Multiple Discounts)
+Menu Type: Non-Veg Menu
+order type: dinein
+item 1: Italian Chicken (Pizza) x 2
+item 2: Classic Beef (Burger) x 1
+payment method: Cash (cashier ID: 123)
+Expected: Both pizza discount (2%) and meat discount (5%) applied, discounts combined
+
+case 6 - Order Calculator (Multiple Discounts)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 1
+item 2: Classic Beef (Burger) x 1
+payment method: Credit Card (Enter card number: 123456 / Enter auth code: 789123)
+Expected: Pizza discount + meat discount both applied
+
+// === No Discount Applied === //
+case 7 - Order Calculator (No Discount)
+Menu Type: Veg Menu
+order type: takeaway
+item 1: Veggie Classic (Burger) x 2
+payment method: Cash (cashier ID: 123)
+Expected: No discount applied (not pizza or meat), only tax calculated
+
+// === Tax Calculation === //
+case 8 - Order Calculator (Tax Calculation)
+Menu Type: Veg Menu
+order type: dinein
+item 1: Margherita (Pizza) x 1 (price: 55.0)
+payment method: Cash (cashier ID: 123)
+Expected: Subtotal: 55.0, Discount: 1.1 (2% of 55), After Discount: 53.9, Tax: 7.546 (14% of 53.9), Total: 61.446
+
+// === Dinein Order === //
+case 1 - Order Template (Dinein)
+Menu Type: Non-Veg Menu
+order type: dinein
+item 1: Italian Chicken (Pizza) x 1
+payment method: Cash (cashier ID: 123)
+Expected: Table number assigned (1-10), no delivery fee, bill shows table number
+
+case 2 - Order Template (Dinein with Multiple Items)
+Menu Type: Veg Menu
+order type: dinein
+item 1: Margherita (Pizza) x 2
+item 2: Veggie Classic (Burger) x 1
+payment method: Credit Card (Enter card number: 123456 / Enter auth code: 789123)
+Expected: Order processed, table assigned, bill generated
+
+// === Takeaway Order === //
+case 3 - Order Template (Takeaway)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Cash (cashier ID: 123)
+Expected: Pickup time: 11:20, no delivery fee, bill shows pickup time
+
+// === Delivery Order === //
+case 5 - Order Template (Delivery)
+Menu Type: Non-Veg Menu
+order type: delivery
+item 1: Italian Chicken (Pizza) x 1
+delivery address: 123 aaa
+payment method: Cash (cashier ID: 123)
+Expected: Delivery fee: 25.0 added, tax calculated on (subtotal - discount + delivery fee), address shown
+
+case 6 - Order Template (Delivery with Discounts)
+Menu Type: Veg Menu
+order type: delivery
+item 1: Margherita (Pizza) x 2
+delivery address: 456 bbb
+payment method: Credit Card (Enter card number: 123456 / Enter auth code: 123456)
+Expected: Pizza discount applied, delivery fee added, tax includes delivery fee
+
+case 3 
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Mobile Wallet (wallet ID: 123)
+
+// === Extra Cheese Only === //
+case 1 - Decorator (Extra Cheese)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese
+payment method: Cash (cashier ID: 123)
+Expected: Extra cheese decorator adds price, description updated
+
+// === Sauce Only === //
+case 2 - Decorator (Sauce)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + sauce
+payment method: Cash (cashier ID: 123)
+Expected: Sauce decorator adds price, description updated
+
+// === Extra Cheese + Sauce === //
+case 3 - Decorator (Both Extras)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2 + extra cheese & sauce
+payment method: Cash (cashier ID: 123)
+Expected: Both decorators applied, prices combined, description shows both
+
+// === No Extras === //
+case 4 - (No Extras)
+Menu Type: Non-Veg Menu
+order type: takeaway
+item 1: Italian Chicken (Pizza) x 2
+payment method: Cash (cashier ID: 123)
+Expected: Base item price, no decorators applied
+
