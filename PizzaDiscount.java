@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class PizzaDiscount implements DiscountStrategy {
-    double percent = 10.0;
+    double percent = 2.0;
 
     @Override
     public double apply(List<OrderItem> items) {

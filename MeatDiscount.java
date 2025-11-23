@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class MeatDiscount implements DiscountStrategy {
-    double percent = 25.0;
+    double percent = 5.0;
     double meatSubtotal = 0.0;
 
     @Override
