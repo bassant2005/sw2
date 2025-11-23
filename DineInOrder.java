@@ -1,6 +1,8 @@
 import java.util.Random;
 
 public class DineInOrder extends OrderTemplate {
+
+    // Random table number assigned
     protected final int tableNumber = new Random().nextInt(10) + 1;
     double subtotal = 0;
 
@@ -8,6 +10,7 @@ public class DineInOrder extends OrderTemplate {
         super(paymentHandler, notifier, calculator);
     }
 
+    /// DINE-IN total = subtotal - discount + tax
     @Override
     protected void calculateTotal() {
         subtotal = calculator.calculateSubtotal(items);
@@ -15,9 +18,11 @@ public class DineInOrder extends OrderTemplate {
         double afterDiscount = Math.max(0.0, subtotal - discount);
         double tax = calculator.calculateTax(afterDiscount);
         double total = afterDiscount + tax;
-        System.out.printf("[DineInOrder #%d] Subtotal=%.2f Discount=%.2f Tax=%.2f => Total=%.2f\n", 
-            getOrderId(), subtotal, discount, tax, total);
+
+        System.out.printf("[DineInOrder #%d] Subtotal=%.2f Discount=%.2f Tax=%.2f => Total=%.2f\n",
+                getOrderId(), subtotal, discount, tax, total);
     }
+
     @Override
     protected boolean handlePayment() {
         if (paymentStrategy == null) return true;
@@ -26,12 +31,12 @@ public class DineInOrder extends OrderTemplate {
 
     @Override
     protected void notifySystems() {
-        notifier.notifyObservers(this);
+        notifier.notifyObservers(this); // Notify kitchen
     }
 
     @Override
     protected void printBill() {
         BillingSystem.getInstance().generateAndPrintBill(getOrderId(), items, calculator);
-        System.out.println("table number: " + tableNumber);
+        System.out.println("Table Number: " + tableNumber);
     }
 }

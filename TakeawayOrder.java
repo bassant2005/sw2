@@ -1,4 +1,6 @@
 public class TakeawayOrder extends OrderTemplate {
+
+    // Predefined pickup time
     private final String pickupTime = "11:20";
     double subtotal = 0;
 
@@ -12,6 +14,7 @@ public class TakeawayOrder extends OrderTemplate {
         return paymentHandler.processPayment(calculator.calculateTotal(items), paymentStrategy);
     }
 
+    /// TAKEAWAY total (no delivery fee)
     @Override
     protected void calculateTotal() {
         subtotal = calculator.calculateSubtotal(items);
@@ -19,8 +22,9 @@ public class TakeawayOrder extends OrderTemplate {
         double afterDiscount = Math.max(0.0, subtotal - discount);
         double tax = calculator.calculateTax(afterDiscount);
         double total = afterDiscount + tax;
-        System.out.printf("[TakeawayOrder #%d] Subtotal=%.2f Discount=%.2f Tax=%.2f => Total=%.2f (Pickup=%s)\n", 
-            getOrderId(), subtotal, discount, tax, total, pickupTime);
+
+        System.out.printf("[TakeawayOrder #%d] Subtotal=%.2f Discount=%.2f Tax=%.2f => Total=%.2f (Pickup=%s)\n",
+                getOrderId(), subtotal, discount, tax, total, pickupTime);
     }
 
     @Override
@@ -28,6 +32,7 @@ public class TakeawayOrder extends OrderTemplate {
         notifier.notifyObservers(this);
     }
 
+    /// Prints bill + pickup info
     @Override
     protected void printBill() {
         BillingSystem.getInstance().generateAndPrintBill(getOrderId(), items, calculator);
