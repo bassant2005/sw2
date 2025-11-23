@@ -6,14 +6,13 @@ import java.util.*;
 /// description includes "meat", "beef", or "chicken".
 public class MeatDiscount implements DiscountStrategy {
 
-    // Discount percentage
-    double percent = 5.0;
-
-    // Used to accumulate the subtotal of meat-related items
-    double meatSubtotal = 0.0;
-
     @Override
     public double apply(List<OrderItem> items) {
+        // Discount percentage
+        double percent = 5.0;
+
+        // Used to accumulate the subtotal of meat-related items
+        double meatSubtotal = 0.0;
 
         // Loop through each item in the order
         for (OrderItem it : items) {

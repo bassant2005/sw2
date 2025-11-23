@@ -5,12 +5,10 @@ import java.util.*;
 /// This class gives a 2% discount on any item that contains
 /// the word "pizza" in its description.
 public class PizzaDiscount implements DiscountStrategy {
-
-    // Pizza discount percentage
-    double percent = 2.0;
-
     @Override
     public double apply(List<OrderItem> items) {
+        // Pizza discount percentage
+        double percent = 2.0;
 
         // Total price of all pizza items
         double pizzaSubtotal = 0.0;
