@@ -14,23 +14,10 @@ public class MainController {
 
     private void setupNotificationSystem() {
         // Create kitchens
-        Kitchen mainKitchen = new Kitchen("K1", "Main Kitchen");
-        Kitchen pizzaStation = new Kitchen("K2", "Pizza Station");
-        Kitchen grillStation = new Kitchen("K3", "Grill Station");
-
+        Kitchen mainKitchen = new Kitchen("Main Kitchen");
         notificationController.registerObserver(mainKitchen);
-        notificationController.registerObserver(pizzaStation);
-        notificationController.registerObserver(grillStation);
 
-        // Create waiters
-        Waiter waiter1 = new Waiter("W1", 1);
-        Waiter waiter2 = new Waiter("W2", 6);
-        Waiter waiter3 = new Waiter("W3", 11);
-        Waiter deliveryWaiter = new Waiter("W4", null);
-
-        notificationController.registerObserver(waiter1);
-        notificationController.registerObserver(waiter2);
-        notificationController.registerObserver(waiter3);
+        Waiter deliveryWaiter = new Waiter("W1");
         notificationController.registerObserver(deliveryWaiter);
 
         ui.showNotificationSystemSetup();
@@ -62,6 +49,8 @@ public class MainController {
                 return new DineInOrder(paymentHandler, notificationController, calculator);
             case "takeaway":
                 return new TakeawayOrder(paymentHandler, notificationController, calculator);
+            case "delivery":
+                return new DeliveryOrder(paymentHandler, notificationController, calculator,ui.readString("Enter your addres"));
             default:
                 throw new IllegalArgumentException("Invalid order type");
         }

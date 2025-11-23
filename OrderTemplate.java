@@ -31,18 +31,14 @@ public abstract class OrderTemplate {
         System.out.println("\n[Order #" + orderId + "] Placed by " + customerName);
         notifySystems();
         calculateTotal();
-        if (!handlePayment()) {
-            status = OrderStatus.CANCELLED;
-            System.out.println("[Order #" + orderId + "] Payment failed -> CANCELLED");
-            return;
-        }
         printBill();
         status = OrderStatus.COMPLETED;
         System.out.println("[Order #" + orderId + "] Completed!");
     }
 
-    protected abstract void calculateTotal();
     protected abstract boolean handlePayment();
+
+    protected abstract void calculateTotal();
     protected abstract void notifySystems();
     protected abstract void printBill();
 }

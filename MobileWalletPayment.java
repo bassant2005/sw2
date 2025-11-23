@@ -20,15 +20,6 @@ public class MobileWalletPayment implements PaymentStrategy {
         return Math.random() > 0.1;
     }
 
-    @Override
-    public String getPaymentMethodName() {
-        return "Mobile Wallet";
-    }
-
-    public String getWalletId() {
-        return walletId;
-    }
-
     private String format(double val) {
         return String.format("%.2f", val);
     }

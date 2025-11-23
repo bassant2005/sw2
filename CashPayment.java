@@ -19,15 +19,6 @@ public class CashPayment implements PaymentStrategy {
         return true;
     }
 
-    @Override
-    public String getPaymentMethodName() {
-        return "Cash";
-    }
-
-    public String getCashierId() {
-        return cashierId;
-    }
-
     private String format(double val) {
         return String.format("%.2f", val);
     }

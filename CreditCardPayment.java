@@ -25,11 +25,6 @@ public class CreditCardPayment implements PaymentStrategy {
         return Math.random() > 0.05;
     }
 
-    @Override
-    public String getPaymentMethodName() {
-        return "Credit Card";
-    }
-
     private String maskCardNumber(String cardNumber) {
         if (cardNumber.length() <= 4) {
             return "****";

@@ -20,9 +20,5 @@ public class PaymentHandler {
         }
         return strategy.pay(amount);
     }
-
-    public String getPaymentMethodName(PaymentStrategy strategy) {
-        return strategy != null ? strategy.getPaymentMethodName() : "Unknown";
-    }
 }
 

@@ -18,14 +18,6 @@ public class OrderCalculator {
         }
     }
 
-    public void removeDiscountStrategy(DiscountStrategy strategy) {
-        discountStrategies.remove(strategy);
-    }
-
-    public void clearDiscountStrategies() {
-        discountStrategies.clear();
-    }
-
     public double calculateSubtotal(List<OrderItem> items) {
         if (items == null || items.isEmpty()) {
             return 0.0;
@@ -53,14 +45,6 @@ public class OrderCalculator {
         double afterDiscount = Math.max(0.0, subtotal - discount);
         double tax = calculateTax(afterDiscount);
         return afterDiscount + tax;
-    }
-
-    public double getTaxPercent() {
-        return taxPercent;
-    }
-
-    public int getDiscountStrategyCount() {
-        return discountStrategies.size();
     }
 }
 

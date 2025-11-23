@@ -21,17 +21,7 @@ public class UIController {
     }
 
     // ===== General Output =====
-    public void showMessage(String msg) {
-        System.out.println(msg);
-    }
-
-    public void showHeader(String title) {
-        System.out.println("========================================");
-        System.out.println("  " + title);
-        System.out.println("========================================\n");
-    }
-
-    public void showFooter(String message) {
+    public void showMessage(String message) {
         System.out.println("\n========================================");
         System.out.println("  " + message);
         System.out.println("========================================");
@@ -61,17 +51,15 @@ public class UIController {
 
     public String readOrderType() {
         while (true) {
-            String type = readString("Enter order type (dinein/takeaway)").toLowerCase();
-            if (type.equals("dinein") || type.equals("takeaway")) return type;
-            System.out.println("Invalid type! Please enter dinein or takeaway.");
+            String type = readString("Enter order type (dinein/takeaway/delivery)").toLowerCase();
+            if (type.equals("dinein") || type.equals("takeaway") || type.equals("delivery")) return type;
+            System.out.println("Invalid type! Please enter dinein ,delivery or takeaway.");
         }
     }
 
     // ===== Notification Setup =====
     public void showNotificationSystemSetup() {
         System.out.println("[System] Notification system ready!");
-        System.out.println("  - 3 Kitchen stations subscribed (Main, Pizza, Grill)");
-        System.out.println("  - 4 Waiters subscribed (covering all tables + delivery)");
         System.out.println("  - All will receive automatic notifications for new orders");
     }
 
@@ -105,5 +93,30 @@ public class UIController {
                 System.out.println("Invalid, defaulting to cash.");
                 return new CashPayment("Default");
         }
+    }
+
+    public Menu MenuType(){
+        int choice = selectMenuType();
+
+        // Create menu factory based on user choice
+        MenuFactory factory;
+        switch (choice) {
+            case 1:
+                factory = new VegMenuFactory();
+                break;
+            case 2:
+                factory = new NonVegMenuFactory();
+                break;
+            case 3:
+                factory = new KidsMenuFactory();
+                break;
+            default:
+                showMessage("Invalid choice! Defaulting to Veg Menu.");
+                factory = new VegMenuFactory();
+        }
+        // Create the menu
+        Menu menu = factory.createMenu();
+
+        return menu;
     }
 }

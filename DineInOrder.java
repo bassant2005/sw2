@@ -18,7 +18,6 @@ public class DineInOrder extends OrderTemplate {
         System.out.printf("[DineInOrder #%d] Subtotal=%.2f Discount=%.2f Tax=%.2f => Total=%.2f\n", 
             getOrderId(), subtotal, discount, tax, total);
     }
-
     @Override
     protected boolean handlePayment() {
         if (paymentStrategy == null) return true;
